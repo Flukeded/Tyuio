@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บูธชีววิทยา</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f8ff;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #4caf50;
+            color: white;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+        }
+        main {
+            padding: 20px;
+        }
+        .game-box {
+            margin-top: 30px;
+        }
+        .dna-base {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            margin: 10px;
+            font-size: 24px;
+            background: #e0f7fa;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .dna-base:hover {
+            background: #80deea;
+        }
+        .score {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>บูธชีววิทยา 🧬</h1>
+    <p>เรียนรู้ DNA และร่างกายผ่านเกมสนุก ๆ!</p>
+</header>
+
+<main>
+    <h2>เกมจับคู่ DNA Base</h2>
+    <p>คลิกที่เบส DNA ให้ตรงกับคู่ของมัน (A-T, C-G)</p>
+
+    <div class="game-box" id="gameBox">
+        <div class="dna-base" data-pair="T">A</div>
+        <div class="dna-base" data-pair="G">C</div>
+        <div class="dna-base" data-pair="C">G</div>
+        <div class="dna-base" data-pair="A">T</div>
+    </div>
+
+    <div class="score" id="score">คะแนน: 0</div>
+</main>
+
+<script>
+    const bases = document.querySelectorAll('.dna-base');
+    let selected = null;
+    let score = 0;
+
+    bases.forEach(base => {
+        base.addEventListener('click', () => {
+            if (!selected) {
+                selected = base;
+                base.style.background = '#ffcc80';
+            } else if (selected === base) {
+                return;
+            } else {
+                if (selected.dataset.pair === base.textContent) {
+                    alert('ถูกต้อง! 🎉');
+                    score += 10;
+                    selected.style.background = '#a5d6a7';
+                    base.style.background = '#a5d6a7';
+                } else {
+                    alert('ผิด 😢');
+                    selected.style.background = '#e0f7fa';
+                    base.style.background = '#e0f7fa';
+                }
+                selected = null;
+                document.getElementById('score').textContent = `คะแนน: ${score}`;
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
